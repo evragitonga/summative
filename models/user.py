@@ -38,10 +38,12 @@ class User():
   @classmethod
   def get_user(cls,user_id):
     return print(cls._users[user_id])
+
+
   
   def add_projects(self,project):
     if project.title not in self.projects:
-      self.projects.append(project.title)
+      self.projects.append(project.project_id)
       
   
   @classmethod    

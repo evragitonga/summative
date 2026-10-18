@@ -56,9 +56,7 @@ task5 = Tasks.create_task(
 )
 
 
-# =========================
-# 4. CONNECT USERS TO PROJECTS
-# =========================
+#connect users to projects
 
 amina.add_projects(project1)
 brian.add_projects(project2)
@@ -67,9 +65,9 @@ diana.add_projects(project4)
 evra.add_projects(project5)
 
 
-# =========================
-# 5. CONNECT PROJECTS TO TASKS
-# =========================
+
+# connect projects to tasks
+
 
 project1.add_task(task1)
 project2.add_task(task2)
@@ -79,10 +77,14 @@ project5.add_task(task5)
 
 
 
-# User.view_users()
-# Projects.all_projects()
+User.view_user_projects("USER1001")
+# Projects.get_project("PJT1001")
 # Tasks.all_tasks()
 # User.update("USER1001","name","Alex")
 # User.get_user("USER1001")
 # User.update("USER1001","email",email="alex@gmail.com")
 # User.get_user("USER1001")
+
+# Projects.update("PJT1001","owner",evra)
+
+# Projects.get_project("PJT1001")

@@ -45,3 +45,30 @@ class Projects:
   def add_task(self,task):
     if task.title not in self.tasks:
       self.tasks.append(task.title)
+
+  @classmethod    
+  def update(cls,product_id,value_to_update,owner=None,title=None, description=None,due_date=None):
+    project = cls._projects.get(product_id)
+    if project == None:
+      return "No project found"
+    if value_to_update == "owner":
+      if owner is not None:
+        project.owner = owner
+    elif value_to_update == "title":
+      if title is not None:
+        project.title = title
+    elif value_to_update == "description":
+      if description is not None:
+        project.description = description
+    elif value_to_update == "due date":
+      if due_date is not None:
+        project.due_date = due_date
+    elif value_to_update == "tasks":
+      if previous_task is not None and updated_task is not None:
+        for index,task in enumerate(user.tasks):
+          if task == previous_task.title:
+            user.task[index] = updated_task.title
+            return f"task updated from {previous_task.title} to {updated_task.title}"
+          else:
+            return "No task found that matches previous task"
+

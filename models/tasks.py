@@ -37,7 +37,21 @@ class Tasks:
   
   def get_task(cls,task_id):
     return print(cls._tasks[task_id])
-         
 
+
+  @classmethod    
+  def update(cls,task_id,value_to_update,title=None,status=None,assigned_to=None):
+      task = cls._tasks.get(task_id)
+      if task == None:
+        return "No task found"
+      if value_to_update == "title":
+        if title is not None:
+          task.title = title
+      elif value_to_update == "status":
+        if status is not None:
+          task.status = status
+      elif value_to_update == "task":
+        if assigned_to is not None:
+          task.assigned_to = assigned_to
 
 
