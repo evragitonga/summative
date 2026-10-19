@@ -1,0 +1,113 @@
+{
+    "users": {
+        "USER1001": {
+            "user_id": "USER1001",
+            "name": "Amina",
+            "email": "amina@gmail.com",
+            "projects": [
+                "PJT1001"
+            ]
+        },
+        "USER1002": {
+            "user_id": "USER1002",
+            "name": "Brian",
+            "email": "brian@gmail.com",
+            "projects": [
+                "PJT1002"
+            ]
+        },
+        "USER1003": {
+            "user_id": "USER1003",
+            "name": "Charles",
+            "email": "charles@gmail.com",
+            "projects": [
+                "PJT1003"
+            ]
+        },
+        "USER1004": {
+            "user_id": "USER1004",
+            "name": "Diana",
+            "email": "diana@gmail.com",
+            "projects": [
+                "PJT1004"
+            ]
+        },
+        "USER1005": {
+            "user_id": "USER1005",
+            "name": "Evra",
+            "email": "evra@gmail.com",
+            "projects": [
+                "PJT1005"
+            ]
+        }
+    },
+    "projects": {
+        "PJT1001": {
+            "project_id": "PJT1001",
+            "owner": "USER1001",
+            "title": "Inventory Management System",
+            "description": "Build a CLI application to add, view, search, update, and delete products while tracking stock levels.",
+            "due_date": "2026-11-15"
+        },
+        "PJT1002": {
+            "project_id": "PJT1002",
+            "owner": "USER1002",
+            "title": "Online Store",
+            "description": "Develop an e-commerce website where users can browse products, add items to a cart, and place orders.",
+            "due_date": "2026-12-01"
+        },
+        "PJT1003": {
+            "project_id": "PJT1003",
+            "owner": "USER1003",
+            "title": "Student Management System",
+            "description": "Create an application to register students, record grades, and manage student information.",
+            "due_date": "2026-11-20"
+        },
+        "PJT1004": {
+            "project_id": "PJT1004",
+            "owner": "USER1004",
+            "title": "Hospital Management System",
+            "description": "Build a system to manage patient records, doctor appointments, and hospital services.",
+            "due_date": "2026-12-10"
+        },
+        "PJT1005": {
+            "project_id": "PJT1005",
+            "owner": "USER1005",
+            "title": "Portfolio Website",
+            "description": "Develop a responsive portfolio website to showcase projects, skills, and contact information.",
+            "due_date": "2026-11-30"
+        }
+    },
+    "tasks": {
+        "TSK1001": {
+            "task_id": "TSK1001",
+            "title": "Design the database",
+            "status": "not complete",
+            "assigned_to": "PJT1001"
+        },
+        "TSK1002": {
+            "task_id": "TSK1002",
+            "title": "Build the user interface",
+            "status": "in progress",
+            "assigned_to": "PJT1002"
+        },
+        "TSK1003": {
+            "task_id": "TSK1003",
+            "title": "Implement student registration",
+            "status": "complete",
+            "assigned_to": "PJT1003"
+        },
+        "TSK1004": {
+            "task_id": "TSK1004",
+            "title": "Create appointment booking",
+            "status": "not complete",
+            "assigned_to": "PJT1004"
+        },
+        "TSK1005": {
+            "task_id": "TSK1005",
+            "title": "Deploy the portfolio website",
+            "status": "in progress",
+            "assigned_to": "PJT1005"
+        }
+    }
+}

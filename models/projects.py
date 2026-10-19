@@ -13,7 +13,7 @@ class Projects:
       return f"""
     Project(
         Project Id: {self.project_id}, 
-        Owner: {self.owner.name}, 
+        Owner: {self.owner.user_id}, 
         Title:{self.title}, 
         Description: {self.description}, 
         Due_date: {self.due_date}
@@ -40,15 +40,15 @@ class Projects:
   
   @classmethod
   def get_project(cls,project_id):
-    return print(cls._projects[project_id])
+    return cls._projects[project_id]
   
-  def add_task(self,task):
-    if task.title not in self.tasks:
-      self.tasks.append(task.title)
+  def add_task(self,task_id):
+    if task_id not in self.tasks:
+      self.tasks.append(task_id)
 
   @classmethod    
-  def update(cls,product_id,value_to_update,owner=None,title=None, description=None,due_date=None):
-    project = cls._projects.get(product_id)
+  def update(cls,project_id,value_to_update,owner=None,title=None, description=None,due_date=None):
+    project = cls._projects.get(project_id)
     if project == None:
       return "No project found"
     if value_to_update == "owner":
@@ -72,3 +72,51 @@ class Projects:
           else:
             return "No task found that matches previous task"
 
+  def remove_task(self,task_id):
+    if task_id in self.tasks:
+      self.tasks.remove(task_id)
+
+  @classmethod
+  def delete_project(cls,project_id):
+    project = cls._projects.get(project_id)
+    if project is None:
+      return "project not found"
+    cls._projects.pop(project_id)
+
+    from models.user import User
+
+    for user in User._users.values():
+      if project_id in user.projects:
+        user.projects.remove(project_id)
+
+    from models.tasks import Tasks
+
+    for task in Tasks._tasks.values():
+      if project_id == task.assigned_to.project_id:
+        task.assigned_to.project_id = None
+  def to_dict(self):
+    return {
+      "project_id":self.project_id,
+      "owner":self.owner.user_id,
+      "title":self.title,
+      "description":self.description,
+      "due_date":self.due_date
+    }
+  
+  
+  @classmethod
+  def from_dict(cls, data):
+      project = cls.__new__(cls)
+
+      from models.user import User
+
+      owner_id = data["owner"]
+      project.owner = User._users.get(owner_id) if owner_id else None
+
+      project.project_id = data["project_id"]
+      project.title = data["title"]
+      project.description = data["description"]
+      project.due_date = data["due_date"]
+      project.tasks = []
+
+      return project

@@ -41,9 +41,9 @@ class User():
 
 
   
-  def add_projects(self,project):
-    if project.title not in self.projects:
-      self.projects.append(project.project_id)
+  def add_projects(self,project_id):
+    if project_id not in self.projects:
+      self.projects.append(project_id)
       
   
   @classmethod    
@@ -65,3 +65,37 @@ class User():
             return f"project updated from {previous_project.title} to {updated_project.title}"
           else:
             return "No project found that matches previous project"
+
+  def remove_project(self,project_id):
+    if project_id in self.projects:
+      self.projects.remove(project_id)
+  
+  @classmethod
+  def delete_user(cls,user_id):
+    user = cls._users.get(user_id)
+    if user is None:
+      return "User not found"
+    cls._users.pop(user_id)
+
+    from models.projects import Projects
+
+    for project in Projects._projects.values():
+      if user_id == project.owner.user_id:
+        project.owner.user_id = None
+
+  def to_dict(self):
+    return {
+    "user_id":self.user_id,
+    "name":self.name,
+    "email":self.email,
+    "projects":self.projects
+    }
+  
+  @classmethod
+  def from_dict(cls, data):
+    user = cls.__new__(cls)
+    user.user_id = data["user_id"]
+    user.name= data["name"]
+    user.email = data["email"]
+    user.projects = data["projects"]
+    return user
