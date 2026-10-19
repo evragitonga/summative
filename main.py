@@ -75,6 +75,7 @@ def main():
         elif args.action == "delete":
             User.delete_user(args.id)
             print(f"User {args.id} deleted succesfully")
+            
 
         elif args.action == "remove-project":
             user = User.get_user(args.id)
