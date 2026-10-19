@@ -7,7 +7,8 @@ You can:
 - Add, view, update, and delete users.
 - Add, view, update, and delete projects.
 - Add, view, update, and delete tasks.
-- Mark tasks as complete or not complete.
+- Assign projects to users and tasks to projects.
+- Mark tasks as complete
 
 ## Installing Python
 
@@ -17,7 +18,7 @@ Download it here: https://www.python.org/downloads/
 
 During installation on Windows, tick **Add Python to PATH**.
 
-## Set up the project
+## Set Up the Project
 
 ### Step 1: Install Git
 
@@ -51,7 +52,30 @@ Run:
 python --version
 ```
 
-### Step 5: Start the program
+## External Dependencies
+
+This project uses **Colorama** to display colored messages in the terminal, making success messages and errors easier to distinguish.
+
+### Installation
+
+Alternatively, install all project dependencies using:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Color Usage
+
+- Green: Successful operations, such as creating users, projects, and tasks.
+- Red: Errors, such as missing users, projects, or tasks.
+- Yellow: Displaying lists and individual records.
+
+## Requirements
+
+- Python 3
+- Colorama
+
+## Starting the Program
 
 To view the available commands, run:
 
@@ -59,11 +83,11 @@ To view the available commands, run:
 python main.py --help
 ```
 
-The program saves your information in `data.json`. Keep this file so you do not lose your saved data.
-
-## How to use the program
+## How to Use the Program
 
 Run each command in the terminal from the folder containing `main.py`.
+
+### Users
 
 ### Add a user
 
@@ -83,19 +107,25 @@ python main.py user list
 python main.py user show --id USER1001
 ```
 
-### Update a user
+### Update a user's name
 
 ```bash
 python main.py user update --id USER1001 --name "Amina Wanjiku"
 ```
 
-### Update a user project
+### Update a user's email
+
+```bash
+python main.py user update --id USER1001 --email "amina.new@gmail.com"
+```
+
+### Replace a user's project reference
 
 ```bash
 python main.py user update --id USER1001 --previous-project PJT1001 --project PJT1002
 ```
 
-### remove a project from a user
+### Remove a project from a user
 
 ```bash
 python main.py user remove-project --id USER1001 --project PJT1003
@@ -106,6 +136,8 @@ python main.py user remove-project --id USER1001 --project PJT1003
 ```bash
 python main.py user delete --id USER1004
 ```
+
+### Projects
 
 ### Add a project
 
@@ -125,13 +157,31 @@ python main.py project list
 python main.py project show --id PJT1001
 ```
 
-### Update a project
+### Update a project's title
 
 ```bash
 python main.py project update --id PJT1001 --title "New Library System"
 ```
 
-### update a project task
+### Change a project's owner
+
+```bash
+python main.py project update --id PJT1001 --owner USER1002
+```
+
+### Update a project's description
+
+```bash
+python main.py project update --id PJT1001 --description "Manage library books and records"
+```
+
+### Update a project's due date
+
+```bash
+python main.py project update --id PJT1001 --due-date 2026-12-20
+```
+
+### Replace a task ID in a project
 
 ```bash
 python main.py project update --id PJT1001 --previous-task TSK1001 --task TSK1002
@@ -143,10 +193,14 @@ python main.py project update --id PJT1001 --previous-task TSK1001 --task TSK100
 python main.py project delete --id PJT1001
 ```
 
-### Add a task
+### Tasks
+
+### Add a task to a project
+
+The `--id` value is the ID of the project receiving the task.
 
 ```bash
-python main.py task add --title "Design the database" --status "complete" --id PJT1003
+python main.py task add --title "Design the database" --status complete --id PJT1003
 ```
 
 ### View all tasks
@@ -161,30 +215,34 @@ python main.py task list
 python main.py task show --id TSK1001
 ```
 
-### Update a task
+### Update a task's title
 
 ```bash
 python main.py task update --id TSK1001 --title "Create the database"
+```
+
+### Change a task's status
+
+```bash
+python main.py task update --id TSK1001 --status complete
+```
+
+### Mark it not complete
+
+```bash
+python main.py task update --id TSK1001 --status "not complete"
+```
+
+### Assign a task to another project
+
+```bash
+python main.py task update --id TSK1001 --project PJT1002
 ```
 
 ### Mark a task as complete
 
 ```bash
 python main.py task complete --id TSK1001
-```
-
-### Change a task's status
-
-Mark it complete:
-
-```bash
-python main.py task update --id TSK1001 --status complete
-```
-
-Mark it not complete:
-
-```bash
-python main.py task update --id TSK1001 --status "not complete"
 ```
 
 ### Delete a task

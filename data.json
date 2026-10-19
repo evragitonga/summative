@@ -121,7 +121,7 @@
         "TSK1002": {
             "task_id": "TSK1002",
             "title": "Build the user interface",
-            "status": "in progress",
+            "status": "not complete",
             "assigned_to": "PJT1002"
         },
         "TSK1003": {
@@ -139,7 +139,7 @@
         "TSK1005": {
             "task_id": "TSK1005",
             "title": "Deploy the portfolio website",
-            "status": "in progress",
+            "status": "not complete",
             "assigned_to": "PJT1005"
         },
         "TSK1006": {
