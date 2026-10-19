@@ -29,11 +29,11 @@ class User():
       
   @classmethod
   def view_users(cls):
-    return print(list(cls._users.values()))
+    return list(cls._users.values())
   
   @classmethod
   def get_user(cls,user_id):
-    return print(cls._users[user_id])
+    return cls._users.get(user_id)
 
 
   
@@ -56,22 +56,23 @@ class User():
     elif value_to_update == "project":
       if previous_project is not None and updated_project is not None:
         for index,project in enumerate(user.projects):
-          if project == previous_project.title:
-            user.projects[index] = updated_project.title
+          if project == previous_project.project_id:
+            user.projects[index] = updated_project.project_id
             return f"project updated from {previous_project.title} to {updated_project.title}"
-          else:
-            return "No project found that matches previous project"
+        return "No project found that matches previous project"
 
   def remove_project(self,project_id):
     if project_id in self.projects:
       self.projects.remove(project_id)
-  
+      
+
   @classmethod
   def delete_user(cls,user_id):
     user = cls._users.get(user_id)
     if user is None:
       return "User not found"
     cls._users.pop(user_id)
+    print("User deleted")
 
     from models.projects import Projects
 

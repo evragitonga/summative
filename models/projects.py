@@ -25,25 +25,26 @@ class Projects:
     project_id = cls._generate_id()
     project = cls(project_id,owner,title,description,due_date)
     cls._projects[project_id] = project
+    owner.add_projects(project_id)
     return project
   
   @classmethod
   def _generate_id(cls):
     return generate_id(cls,"PJT",cls._projects)
   @classmethod    
-  def all_projects(cls):
-    return print(list(cls._projects.values()))
+  def view_projects(cls):
+    return list(cls._projects.values())
   
   @classmethod
   def get_project(cls,project_id):
-    return cls._projects[project_id]
+    return cls._projects.get(project_id)
   
   def add_task(self,task_id):
     if task_id not in self.tasks:
       self.tasks.append(task_id)
 
   @classmethod    
-  def update(cls,project_id,value_to_update,owner=None,title=None, description=None,due_date=None):
+  def update(cls,project_id,value_to_update,owner=None,title=None, description=None,due_date=None,previous_task=None,updated_task=None):
     project = cls._projects.get(project_id)
     if project == None:
       return "No project found"
@@ -61,12 +62,11 @@ class Projects:
         project.due_date = due_date
     elif value_to_update == "tasks":
       if previous_task is not None and updated_task is not None:
-        for index,task in enumerate(user.tasks):
-          if task == previous_task.title:
-            user.task[index] = updated_task.title
+        for index,task in enumerate(project.tasks):
+          if task == previous_task.task_id:
+            project.tasks[index] = updated_task.task_id
             return f"task updated from {previous_task.title} to {updated_task.title}"
-          else:
-            return "No task found that matches previous task"
+        return "No task found that matches previous task"
 
   def remove_task(self,task_id):
     if task_id in self.tasks:
@@ -96,7 +96,8 @@ class Projects:
       "owner":self.owner.user_id,
       "title":self.title,
       "description":self.description,
-      "due_date":self.due_date
+      "due_date":self.due_date,
+      "tasks":self.tasks
     }
   
   

@@ -29,6 +29,9 @@ def main():
     parser.add_argument("--due-date")
     parser.add_argument("--project")
     parser.add_argument("--task-id")
+    parser.add_argument("--previous-project")
+    parser.add_argument("--previous-task")
+    parser.add_argument("--task")
     parser.add_argument(
         "--status",
         choices=["not complete", "complete"]
@@ -47,154 +50,91 @@ def main():
             print("User created:", user.user_id)
 
         elif args.action == "list":
-            for user in User._users.values():
-                print(user.user_id, user.name, user.email)
-
+            print(User.view_users())
         elif args.action == "show":
-            user = User._users.get(args.id)
-
-            if user:
-                print(user)
+            print(User.get_user(args.id))
 
         elif args.action == "update":
-            user = User._users.get(args.id)
-
-            if user:
-                if args.name is not None:
-                    user.name = args.name
-                if args.email is not None:
-                    user.email = args.email
+            if args.name is not None:
+                User.update(args.id,"name",name=args.name)
                 print("User updated.")
+            if args.email is not None:
+                User.update(args.id,"email",email=args.email)
+                print("User updated.")
+            
+            if args.previous_project is not None and args.project is not None:
+                previous_project = Projects.get_project(args.previous_project)
+                updated_project = Projects.get_project(args.project)
+
+                if previous_project and updated_project:
+                    print(
+                        User.update(args.id,"project",previous_project=previous_project,updated_project=updated_project))
+                else:
+                    print("Previous project or new project not found.")
 
         elif args.action == "delete":
-            user = User._users.get(args.id)
-
-            if user:
-                for project in Projects._projects.values():
-                    if project.owner is user:
-                        project.owner = None
-
-                del User._users[args.id]
-                print("User deleted.")
+            User.delete_user(args.id)
+            print(f"User {args.id} deleted succesfully")
 
         elif args.action == "remove-project":
-            user = User._users.get(args.id)
+            user = User.get_user(args.id)
 
             if user and args.project:
-                user.remove_project(args.project)
-
-                project = Projects._projects.get(args.project)
-                if project and project.owner is user:
-                    project.owner = None
-
+                removed = user.remove_project(args.project)
                 print("Project removed from user.")
-
-        else:
-            print("Action not available for users.")
-
+            else:
+                print("user or project id not provided.")
 
     elif args.entity == "project":
 
         if args.action == "add":
-            owner = User._users.get(args.owner)
-
+            owner = User.get_user(args.id)
             if owner:
-                project = Projects.create_project(
-                    owner,
-                    args.title,
-                    args.description,
-                    args.due_date
-                )
-
-                owner.add_projects(project.project_id)
+                project = Projects.create_project(owner,args.title,args.description,args.due_date)
                 print("Project created:", project.project_id)
-
             else:
-                print("Owner not found.")
+                print("No owner found")
 
         elif args.action == "list":
-            for project in Projects._projects.values():
-                owner_id = (
-                    project.owner.user_id if project.owner else "None"
-                )
-                print(project.project_id, project.title, owner_id)
-
+            print(Projects.view_projects())
         elif args.action == "show":
-            project = Projects._projects.get(args.id)
-
-            if project:
-                print("ID:", project.project_id)
-                print("Title:", project.title)
-                print("Description:", project.description)
-                print("Due date:", project.due_date)
-                print("Tasks:", project.tasks)
-
+            print(Projects.get_project(args.id))
         elif args.action == "update":
-            project = Projects._projects.get(args.id)
+            if args.owner is not None:
+                owner = User.get_user(args.id)
+                Projects.update(args.id,"owner",owner=owner)
+                print("project owner updated.")
+            if args.title is not None:
+                Projects.update(args.id,"title",title=args.title)
+                print("Project title updated.")
+            if args.description is not None:
+                Projects.update(args.id,"description",description=args.description)
+                print("Project description updated.")
+            if args.due_date is not None:
+                Projects.update(args.id,"due date",due_date=args.due-date)
+                print("Project due date updated.")
+            if args.previous_task is not None and args.task is not None:
+                previous_task = Tasks.get_task(args.previous_task)
+                updated_task = Tasks.get_task(args.task)
 
-            if project:
-                if args.owner is not None:
-                    new_owner = User._users.get(args.owner)
+                if previous_task and updated_task:
+                    print(
+                        Projects.update(args.id,"tasks",previous_task=previous_task,updated_task=updated_task))
+                else:
+                    print("Previous task or new task not found.")
 
-                    if new_owner is None:
-                        print("Owner not found.")
-                        return
-
-                    if project.owner:
-                        project.owner.remove_project(project.project_id)
-
-                    project.owner = new_owner
-                    new_owner.add_projects(project.project_id)
-
-                if args.title is not None:
-                    project.title = args.title
-                if args.description is not None:
-                    project.description = args.description
-                if args.due_date is not None:
-                    project.due_date = args.due_date
-
-                print("Project updated.")
-
+            
         elif args.action == "delete":
-            project = Projects._projects.get(args.id)
-
-            if project:
-                for user in User._users.values():
-                    user.remove_project(project.project_id)
-
-                for task in Tasks._tasks.values():
-                    if task.assigned_to is project:
-                        task.assigned_to = None
-
-                del Projects._projects[args.id]
-                print("Project deleted.")
-
-        elif args.action == "remove-task":
-            project = Projects._projects.get(args.id)
-
-            if project and args.task_id:
-                project.remove_task(args.task_id)
-
-                task = Tasks._tasks.get(args.task_id)
-                if task and task.assigned_to is project:
-                    task.assigned_to = None
-
-                print("Task removed from project.")
-
-        else:
-            print("Action not available for projects.")
-
+            Projects.delete_project(args.id)
+            print(f"Project {args.id} deleted succesfully")
 
     elif args.entity == "task":
 
         if args.action == "add":
-            project = Projects._projects.get(args.project)
+            project = Projects.get_project(args.id)
 
             if project:
-                task = Tasks.create_task(
-                    args.title,
-                    args.status or "not complete",
-                    project
+                task = Tasks.create_task(args.title,args.status or "not complete",project
                 )
 
                 project.add_task(task.task_id)
@@ -204,72 +144,30 @@ def main():
                 print("Project not found.")
 
         elif args.action == "list":
-            for task in Tasks._tasks.values():
-                project_id = (
-                    task.assigned_to.project_id
-                    if task.assigned_to else "None"
-                )
-                print(
-                    task.task_id,
-                    task.title,
-                    task.status,
-                    project_id
-                )
-
+            print(Tasks.all_tasks())
         elif args.action == "show":
-            task = Tasks._tasks.get(args.id)
-
-            if task:
-                print("ID:", task.task_id)
-                print("Title:", task.title)
-                print("Status:", task.status)
-                print(
-                    "Project:",
-                    task.assigned_to.project_id
-                    if task.assigned_to else "None"
-                )
-
+            print(Tasks.get_task(args.id))
         elif args.action == "update":
-            task = Tasks._tasks.get(args.id)
+            if args.title is not None:
+                Tasks.update(args.id,"title",title=args.title)
+                print("task title updated.")
+            if args.status is not None:
+                Tasks.update(args.id,"status",status=args.status)
+                print("Task status updated.")
+            if args.project is not None:
+                project = Projects.get_project(args.project)
 
-            if task:
-                if args.title is not None:
-                    task.title = args.title
-
-                if args.status is not None:
-                    task.status = args.status
-
-                if args.project is not None:
-                    project = Projects._projects.get(args.project)
-
-                    if project is None:
-                        print("Project not found.")
-                        return
-
-                    if task.assigned_to:
-                        task.assigned_to.remove_task(task.task_id)
-
-                    task.assigned_to = project
-                    project.add_task(task.task_id)
-
-                print("Task updated.")
-
+                if project:
+                    Tasks.update(args.id,"assigned to",assigned_to=project)
+                    print("project assigned to updated")
+                else:
+                    print("Project not found.")
         elif args.action == "complete":
-            task = Tasks._tasks.get(args.id)
-
-            if task:
-                task.status = "complete"
-                print("Task completed.")
-
+            Tasks.mark_task_complete(args.id)
+            print("task completed")
         elif args.action == "delete":
-            task = Tasks._tasks.get(args.id)
-
-            if task:
-                if task.assigned_to:
-                    task.assigned_to.remove_task(task.task_id)
-
-                del Tasks._tasks[args.id]
-                print("Task deleted.")
+            Tasks.delete_task(args.id)
+            print(f"Task {args.id} deleted succesfully.")
 
         else:
             print("Action not available for tasks.")

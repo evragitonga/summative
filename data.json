@@ -2,11 +2,12 @@
     "users": {
         "USER1001": {
             "user_id": "USER1001",
-            "name": "Amina",
+            "name": "Amina Wanjiku",
             "email": "amina@gmail.com",
             "projects": [
                 "PJT1001",
-                "PJT1006"
+                "PJT1003",
+                "PJT1007"
             ]
         },
         "USER1002": {
@@ -19,7 +20,7 @@
         },
         "USER1003": {
             "user_id": "USER1003",
-            "name": "Charles",
+            "name": "Brian",
             "email": "charles@gmail.com",
             "projects": [
                 "PJT1003"
@@ -33,18 +34,10 @@
                 "PJT1004"
             ]
         },
-        "USER1005": {
-            "user_id": "USER1005",
-            "name": "Evra",
-            "email": "evra@gmail.com",
-            "projects": [
-                "PJT1005"
-            ]
-        },
-        "USER1007": {
-            "user_id": "USER1007",
-            "name": "John",
-            "email": "john@gmail.com",
+        "USER1006": {
+            "user_id": "USER1006",
+            "name": "Amina",
+            "email": "amina@gmail.com",
             "projects": []
         }
     },
@@ -52,51 +45,77 @@
         "PJT1001": {
             "project_id": "PJT1001",
             "owner": "USER1001",
-            "title": "Inventory Management System",
+            "title": "New Library System",
             "description": "Build a CLI application to add, view, search, update, and delete products while tracking stock levels.",
-            "due_date": "2026-11-15"
+            "due_date": "2026-11-15",
+            "tasks": [
+                "TSK1001"
+            ]
         },
         "PJT1002": {
             "project_id": "PJT1002",
             "owner": "USER1002",
             "title": "Online Store",
             "description": "Develop an e-commerce website where users can browse products, add items to a cart, and place orders.",
-            "due_date": "2026-12-01"
+            "due_date": "2026-12-01",
+            "tasks": [
+                "TSK1002",
+                "TSK1006",
+                "TSK1007"
+            ]
         },
         "PJT1003": {
             "project_id": "PJT1003",
             "owner": "USER1003",
             "title": "Student Management System",
             "description": "Create an application to register students, record grades, and manage student information.",
-            "due_date": "2026-11-20"
+            "due_date": "2026-11-20",
+            "tasks": [
+                "TSK1003"
+            ]
         },
         "PJT1004": {
             "project_id": "PJT1004",
             "owner": "USER1004",
             "title": "Hospital Management System",
             "description": "Build a system to manage patient records, doctor appointments, and hospital services.",
-            "due_date": "2026-12-10"
+            "due_date": "2026-12-10",
+            "tasks": [
+                "TSK1004"
+            ]
         },
         "PJT1005": {
             "project_id": "PJT1005",
-            "owner": "USER1005",
+            "owner": "USER1002",
             "title": "Portfolio Website",
             "description": "Develop a responsive portfolio website to showcase projects, skills, and contact information.",
-            "due_date": "2026-11-30"
+            "due_date": "2026-11-30",
+            "tasks": [
+                "TSK1005"
+            ]
         },
         "PJT1006": {
             "project_id": "PJT1006",
             "owner": "USER1001",
             "title": "Library System",
             "description": "Manage books",
-            "due_date": "2026-12-10"
+            "due_date": "2026-12-10",
+            "tasks": []
+        },
+        "PJT1007": {
+            "project_id": "PJT1007",
+            "owner": "USER1001",
+            "title": "Library System",
+            "description": "Manage books",
+            "due_date": "2026-12-10",
+            "tasks": []
         }
     },
     "tasks": {
         "TSK1001": {
             "task_id": "TSK1001",
-            "title": "Design the database",
-            "status": "not complete",
+            "title": "Create the database",
+            "status": "complete",
             "assigned_to": "PJT1001"
         },
         "TSK1002": {
@@ -122,6 +141,18 @@
             "title": "Deploy the portfolio website",
             "status": "in progress",
             "assigned_to": "PJT1005"
+        },
+        "TSK1006": {
+            "task_id": "TSK1006",
+            "title": "Design the database",
+            "status": "complete",
+            "assigned_to": "PJT1002"
+        },
+        "TSK1007": {
+            "task_id": "TSK1007",
+            "title": "Design the database",
+            "status": "complete",
+            "assigned_to": "PJT1002"
         }
     }
 }

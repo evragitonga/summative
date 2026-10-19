@@ -89,16 +89,28 @@ python main.py user show --id USER1001
 python main.py user update --id USER1001 --name "Amina Wanjiku"
 ```
 
+### Update a user project
+
+```bash
+python main.py user update --id USER1001 --previous-project PJT1001 --project PJT1002
+```
+
+### remove a project from a user
+
+```bash
+python main.py user remove-project --id USER1001 --project PJT1003
+```
+
 ### Delete a user
 
 ```bash
-python main.py user delete --id USER1001
+python main.py user delete --id USER1004
 ```
 
 ### Add a project
 
 ```bash
-python main.py project add --owner USER1001 --title "Library System" --description "Manage books" --due-date 2026-12-10
+python main.py project add --id USER1001 --title "Library System" --description "Manage books" --due-date 2026-12-10
 ```
 
 ### View all projects
@@ -119,6 +131,12 @@ python main.py project show --id PJT1001
 python main.py project update --id PJT1001 --title "New Library System"
 ```
 
+### update a project task
+
+```bash
+python main.py project update --id PJT1001 --previous-task TSK1001 --task TSK1002
+```
+
 ### Delete a project
 
 ```bash
@@ -128,7 +146,7 @@ python main.py project delete --id PJT1001
 ### Add a task
 
 ```bash
-python main.py task add --title "Design the database" --project PJT1001
+python main.py task add --title "Design the database" --status "complete" --id PJT1003
 ```
 
 ### View all tasks

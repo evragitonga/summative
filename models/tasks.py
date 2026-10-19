@@ -31,10 +31,11 @@ class Tasks:
     return generate_id(cls,"TSK",cls._tasks)
   @classmethod
   def all_tasks(cls):
-    return print(list(cls._tasks.values()))
+    return list(cls._tasks.values())
   
+  @classmethod
   def get_task(cls,task_id):
-    return print(cls._tasks[task_id])
+    return cls._tasks.get(task_id)
 
   def assign_project(self,project_id):
     from models.projects import Projects
@@ -45,7 +46,7 @@ class Tasks:
 
   @classmethod    
   def update(cls,task_id,value_to_update,title=None,status=None,assigned_to=None):
-      task = cls._tasks.get(task_id)
+      task = Tasks.get_task(task_id)
       if task == None:
         return "No task found"
       if value_to_update == "title":
@@ -54,7 +55,7 @@ class Tasks:
       elif value_to_update == "status":
         if status is not None:
           task.status = status
-      elif value_to_update == "task":
+      elif value_to_update == "assigned to":
         if assigned_to is not None:
           task.assigned_to = assigned_to
 
@@ -74,8 +75,9 @@ class Tasks:
   @classmethod
   def mark_task_complete(cls,task_id):
     task = cls._tasks.get(task_id)
-    if task.status == "not complete":
-      task.status = "complete"
+    if task:
+      if task.status == "not complete":
+        task.status = "complete"
 
   def to_dict(self):
     return {
