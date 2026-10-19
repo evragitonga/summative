@@ -1,3 +1,4 @@
+from utility.generate_id import generate_id
 class Projects:
   _next_id = 1000
   _projects = {}
@@ -28,12 +29,7 @@ class Projects:
   
   @classmethod
   def _generate_id(cls):
-    while True:
-      cls._next_id += 1
-      cls.project_id = f"PJT{cls._next_id}"
-      if cls.project_id not in cls._projects:
-        return cls.project_id
-  
+    return generate_id(cls,"PJT",cls._projects)
   @classmethod    
   def all_projects(cls):
     return print(list(cls._projects.values()))

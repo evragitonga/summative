@@ -1,3 +1,4 @@
+from utility.generate_id import generate_id
 class User():
   _users = {}
   _next_id = 1000
@@ -24,12 +25,7 @@ class User():
   
   @classmethod
   def _generate_id(cls):
-    while True:
-      cls._next_id += 1
-      cls.user_id = f"USER{cls._next_id}"
-      
-      if cls.user_id not in cls._users:
-        return cls.user_id
+    return generate_id(cls,"USER",cls._users)
       
   @classmethod
   def view_users(cls):

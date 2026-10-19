@@ -5,7 +5,8 @@
             "name": "Amina",
             "email": "amina@gmail.com",
             "projects": [
-                "PJT1001"
+                "PJT1001",
+                "PJT1006"
             ]
         },
         "USER1002": {
@@ -39,6 +40,12 @@
             "projects": [
                 "PJT1005"
             ]
+        },
+        "USER1007": {
+            "user_id": "USER1007",
+            "name": "John",
+            "email": "john@gmail.com",
+            "projects": []
         }
     },
     "projects": {
@@ -76,6 +83,13 @@
             "title": "Portfolio Website",
             "description": "Develop a responsive portfolio website to showcase projects, skills, and contact information.",
             "due_date": "2026-11-30"
+        },
+        "PJT1006": {
+            "project_id": "PJT1006",
+            "owner": "USER1001",
+            "title": "Library System",
+            "description": "Manage books",
+            "due_date": "2026-12-10"
         }
     },
     "tasks": {
