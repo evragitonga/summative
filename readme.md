@@ -9,29 +9,51 @@ You can:
 - Add, view, update, and delete tasks.
 - Mark tasks as complete or not complete.
 
-## Installing python
+## Installing Python
 
 Before starting, install **Python 3** on your computer.
 
-You can download it here: https://www.python.org/downloads/
+Download it here: https://www.python.org/downloads/
 
 During installation on Windows, tick **Add Python to PATH**.
 
 ## Set up the project
 
-**Step 1:** Download or copy the project folder to your computer.
+### Step 1: Install Git
 
-**Step 2:** Open the project folder. Make sure it contains `main.py`, `models`, and `data`.
+If Git is not installed on your computer, download it here:
 
-**Step 3:** Open a terminal inside the project folder.
+https://git-scm.com/downloads
 
-**Step 4:** Check that Python is installed by running:
+### Step 2: Clone the repository
+
+Open your terminal and run:
+
+```bash
+git clone https://github.com/evragitonga/summative.git
+```
+
+### Step 3: Open the project folder
+
+Navigate into the cloned repository:
+
+```bash
+cd summative
+```
+
+Make sure the project contains `main.py`, the `models` folder, and the `data` folder.
+
+### Step 4: Check that Python is installed
+
+Run:
 
 ```bash
 python --version
 ```
 
-**Step 5:** Start the program:
+### Step 5: Start the program
+
+To view the available commands, run:
 
 ```bash
 python main.py --help
